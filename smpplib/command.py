@@ -71,7 +71,7 @@ def get_optional_name(code):
         if value == code:
             return key
 
-    raise exceptions.UnknownCommandError('Unknown SMPP command code "0x%x"' % code)
+    raise exceptions.UnknownCommandError('Unknown SMPP optional parameter code "0x%x"' % code)
 
 
 def get_optional_code(name):
@@ -81,7 +81,7 @@ def get_optional_code(name):
     try:
         return consts.OPTIONAL_PARAMS[name]
     except KeyError:
-        raise exceptions.UnknownCommandError('Unknown SMPP command name "%s"' % name)
+        raise exceptions.UnknownCommandError('Unknown SMPP optional parameter name "%s"' % name)
 
 
 def unpack_short(data, pos):
