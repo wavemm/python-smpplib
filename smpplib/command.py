@@ -328,8 +328,14 @@ class Command(pdu.PDU):
 
         while pos < dlen:
             type_code, pos = unpack_short(data, pos)
-            field = get_optional_name(type_code)
             length, pos = unpack_short(data, pos)
+
+            try:
+                field = get_optional_name(type_code)
+            except exceptions.UnknownCommandError as e:
+                logger.warning("Unknown optional parameter type 0x%x, skipping" % type_code)
+                pos += length
+                continue
 
             param = self.params[field]
             if param.type is int:
